@@ -1,6 +1,0 @@
-mysql_root_password: "%b0lc0rp%"
-app_user: "www-data"
-http_host: "lamp.bol-online.com"
-http_conf: "lamp.bol-online.conf"
-http_port: "80"
-disable_default: true
