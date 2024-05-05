@@ -70,7 +70,7 @@
          name: root
          password: "{{ mysql_root_password }}"
          check_implicit_admin: yes
-         login_user: admin
+         login_user: root
          login_password: "{{ mysql_root_password }}"
          state: present
     - name: Removes all anonymous user accounts
