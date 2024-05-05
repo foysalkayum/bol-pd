@@ -22,10 +22,19 @@
       loop:
         - apache2 
         - mysql-server 
+        - python3-pymysql 
         - php 
         - php-mysql 
         - libapache2-mod-php
-  
+        - python3-pip
+        - python3-mysqldb
+
+    - name: Install pyMySQL
+      pip:
+        name: pymysql
+        state: present
+      ignore_errors: True
+
     - name: Create document root
       file:
         path: "/var/www/{{ http_host }}"
@@ -49,7 +58,21 @@
       notify: Reload Apache
 
   # MySQL Configuration
+    - name: Sets the root password
+      mysql_user:
+        name: root
+        password: "{{ mysql_root_password }}"
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+      ignore_errors: True
     
+    - name: Set root user password
+      mysql_user:
+         name: root
+         password: "{{ mysql_root_password }}"
+         check_implicit_admin: yes
+         login_user: admin
+         login_password: "{{ mysql_root_password }}"
+         state: present
     - name: Removes all anonymous user accounts
       mysql_user:
         name: ''
