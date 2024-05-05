@@ -22,19 +22,10 @@
       loop:
         - apache2 
         - mysql-server 
-        - python3-pymysql 
         - php 
         - php-mysql 
         - libapache2-mod-php
-        - python3-pip
-        - python3-mysqldb
-
-    - name: Install pyMySQL
-      pip:
-        name: pymysql
-        state: present
-      ignore_errors: True
-
+  
     - name: Create document root
       file:
         path: "/var/www/{{ http_host }}"
