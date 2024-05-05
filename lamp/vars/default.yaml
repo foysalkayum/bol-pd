@@ -1,5 +1,5 @@
 ---
-app_user: "bol-pd"
+app_user: "www-data"
 mysql_root_password: "%b0lc0rp%"
 http_host: "bol-online.com"
 http_conf: "bol-online.conf"
