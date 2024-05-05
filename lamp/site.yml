@@ -50,14 +50,6 @@
 
   # MySQL Configuration
     
-    - name: Set root user password
-      mysql_user:
-         name: root
-         password: "{{ mysql_root_password }}"
-         check_implicit_admin: yes
-         login_user: admin
-         login_password: "{{ mysql_root_password }}"
-         state: present
     - name: Removes all anonymous user accounts
       mysql_user:
         name: ''
