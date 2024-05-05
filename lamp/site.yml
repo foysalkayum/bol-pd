@@ -1,29 +1,50 @@
 ---
 - hosts: all
-  become: true
+  become: yes
   vars_files:
-    - vars/default.yml
-
+    - vars/default.yaml
   tasks:
-    - name: Install prerequisites
-      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
-     
+    - name: "Install prerequisites"
+      apt: 
+        name: '{{ item }}'
+        update_cache: yes 
+        state: latest 
+        force_apt_get: yes
+      loop: 
+        - aptitude
 
   #Apache Configuration
     - name: Install LAMP Packages
-      apt: name={{ item }} update_cache=yes state=latest
-      loop: [ 'apache2', 'mariadb-server', 'python3-pymysql' 'php', 'mysql-python', 'libapache2-mod-php' ]
+      apt: 
+        name: "{{ item }}" 
+        update_cache: yes 
+        state: latest
+      loop:
+        - apache2 
+        - mysql-server 
+        - python3-pymysql 
+        - php 
+        - php-mysql 
+        - libapache2-mod-php
+        - python3-pip
+        - python3-mysqldb
+
+    - name: Install pyMySQL
+      pip:
+        name: pymysql
+        state: present
+      ignore_errors: True
 
     - name: Create document root
       file:
-        path: "/var/www/html/"
+        path: "/var/www/{{ http_host }}"
         state: directory
         owner: "{{ app_user }}"
         mode: '0755'
-
+      
     - name: Set up Apache virtualhost
       template:
-        src: "files/apache.conf"
+        src: "files/apache.conf.j2"
         dest: "/etc/apache2/sites-available/{{ http_conf }}"
       notify: Reload Apache
 
@@ -41,10 +62,17 @@
       mysql_user:
         name: root
         password: "{{ mysql_root_password }}"
-        login_user: root
-        login_password: ""
         login_unix_socket: /var/run/mysqld/mysqld.sock
-
+      ignore_errors: True
+    
+    - name: Set root user password
+      mysql_user:
+         name: root
+         password: "{{ mysql_root_password }}"
+         check_implicit_admin: yes
+         login_user: admin
+         login_password: "{{ mysql_root_password }}"
+         state: present
     - name: Removes all anonymous user accounts
       mysql_user:
         name: ''
@@ -60,11 +88,18 @@
         login_user: root
         login_password: "{{ mysql_root_password }}"
 
+  # UFW Configuration
+    - name: "UFW - Allow HTTP on port {{ http_port }}"
+      ufw:
+        rule: allow
+        port: "{{ http_port }}"
+        proto: tcp
+
   # PHP Info Page
     - name: Sets Up PHP Info Page
       template:
-        src: "files/info.php"
-        dest: "/var/www/html/info.php"
+        src: "files/info.php.j2"
+        dest: "/var/www/{{ http_host }}/info.php"
 
   handlers:
     - name: Reload Apache
