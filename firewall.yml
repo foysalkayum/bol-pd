@@ -18,13 +18,13 @@
         - 182.163.127.236
         - 202.84.42.5
 
-    - name: Allow HTTP
+    - name: Allow HTTP Access
       ufw:
         rule: allow
         port: 80
         proto: tcp
 
-    - name: Allow HTTPS
+    - name: Allow HTTPS Access
       ufw:
         rule: allow
         port: 443
