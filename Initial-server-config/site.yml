@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   vars:
-    created_username: sammy
+    created_username: foysal
 
   tasks:
     - name: Install aptitude
@@ -50,12 +50,13 @@
         state: latest
         update_cache: true
 
-    - name: UFW - Allow SSH connections
-      community.general.ufw:
-        rule: allow
-        name: OpenSSH
+    #- name: UFW - Allow SSH connections
+    #  community.general.ufw:
+    #    rule: allow
+    #    name: OpenSSH
 
-    - name: UFW - Enable and deny by default
-      community.general.ufw:
-        state: enabled
-        default: deny
+    #- name: UFW - Enable and deny by default
+    #  community.general.ufw:
+    #    state: enabled
+    #    default: deny
+    
