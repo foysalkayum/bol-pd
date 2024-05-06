@@ -3,7 +3,6 @@
   hosts: all
   become: yes
   tasks:
-    - name: Update all Debian/Ubuntu packages to their latest version
       ansible.builtin.apt:
       name: "*"
       state: latest
