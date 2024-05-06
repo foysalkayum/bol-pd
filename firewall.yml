@@ -1,0 +1,29 @@
+---
+- name: Configure UFW firewall
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install UFW
+      apt:
+        name: ufw
+        state: present
+
+    - name: Allow SSH from specific IP
+      ufw:
+        rule: allow
+        name: ssh
+        src: 182.163.127.236
+
+    - name: Allow HTTP
+      ufw:
+        rule: allow
+        name: http
+
+    - name: Allow HTTPS
+      ufw:
+        rule: allow
+        name: https
+
+    - name: Enable UFW
+      ufw:
+        state: enabled
