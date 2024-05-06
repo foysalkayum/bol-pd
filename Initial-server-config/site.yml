@@ -47,6 +47,9 @@
           - vim
           - git
           - ufw
+          - net-tools
+          - bridge-utils
+          - vlan
         state: latest
         update_cache: true
 
