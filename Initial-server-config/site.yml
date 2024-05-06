@@ -27,11 +27,11 @@
         append: true
         create_home: true
 
-    - name: Set authorized key for remote user
-      ansible.posix.authorized_key:
-        user: "{{ created_username }}"
-        state: present
-        key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+    #- name: Set authorized key for remote user
+    #  ansible.posix.authorized_key:
+    #    user: "{{ created_username }}"
+    #    state: present
+    #    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
 
     - name: Disable password authentication for root
       lineinfile:
@@ -59,4 +59,4 @@
     #  community.general.ufw:
     #    state: enabled
     #    default: deny
-    
+
