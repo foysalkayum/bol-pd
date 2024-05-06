@@ -29,6 +29,8 @@
         - libapache2-mod-php
         - python3-pip
         - python3-mysqldb
+        - php-gd
+        - php-cli
         
 
     - name: Install pyMySQL
