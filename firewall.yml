@@ -8,12 +8,15 @@
         name: ufw
         state: present
 
-    - name: Allow SSH from specific IP
+    - name: Allow SSH from specific IPs
       ufw:
         rule: allow
         port: 22
         proto: tcp
-        src: 182.163.127.236
+        src: "{{ item }}"
+      loop:
+        - 182.163.127.236
+        - 202.84.42.5
 
     - name: Allow HTTP
       ufw:
