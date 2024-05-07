@@ -82,37 +82,6 @@
       when: disable_default
       notify: Reload Apache
 
-  # MySQL Configuration
-    - name: Sets the root password
-      mysql_user:
-        name: root
-        password: "{{ mysql_root_password }}"
-        login_unix_socket: /var/run/mysqld/mysqld.sock
-        ignore_errors: True
-    
-    - name: Set root user password
-      mysql_user:
-         name: root
-         password: "{{ mysql_root_password }}"
-         check_implicit_admin: yes
-         login_user: root
-         login_password: "{{ mysql_root_password }}"
-         state: present
-    - name: Removes all anonymous user accounts
-      mysql_user:
-        name: ''
-        host_all: yes
-        state: absent
-        login_user: root
-        login_password: "{{ mysql_root_password }}"
-
-    - name: Removes the MySQL test database
-      mysql_db:
-        name: test
-        state: absent
-        login_user: root
-        login_password: "{{ mysql_root_password }}"
-
   # UFW Configuration
     - name: "UFW - Allow HTTP on port {{ http_port }}"
       ufw:
