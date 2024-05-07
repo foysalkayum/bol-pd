@@ -40,6 +40,7 @@
         state: latest
       loop:
         - apache2 
+        - net-tools
         - mysql-server 
         - python3-pymysql 
         - php
