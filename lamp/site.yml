@@ -88,12 +88,6 @@
         src: "files/info.php.j2"
         dest: "/var/www/{{ http_host }}/index.php"
 
-  handlers:
-    - name: Reload Apache
-      service:
-        name: apache2
-        state: reloaded
-
     - name: Restart Apache
       service:
         name: apache2
