@@ -24,6 +24,7 @@
         - mysql-server 
         - python3-pymysql 
         - php
+        - pip3
         - ufw
         - php-mysql 
         - libapache2-mod-php
