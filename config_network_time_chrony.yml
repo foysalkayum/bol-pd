@@ -12,10 +12,10 @@
        chrony_log: measurements statistics tracking
        chrony_logdir: /var/log/chrony/
        chrony_ntp_servers:
-         - 0.ubuntu.pool.ntp.org
-         - 1.ubuntu.pool.ntp.org
-         - 2.ubuntu.pool.ntp.org
-         - 3.ubuntu.pool.ntp.org
+         - time1.google.com 
+         - time2.google.com 
+         - time3.google.com
+         - time4.google.com         
        chrony_rtcsync: true
        chrony_smearing: true
-       chrony_timezone: "Europe/Oslo"
+       chrony_timezone: "Asia/Dhaka"
