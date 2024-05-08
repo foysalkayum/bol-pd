@@ -1,8 +1,8 @@
 - hosts: servers
   roles:
-     - role: chrony
-       chrony_allow_enable: true
-       chrony_allow:
+    - role: chrony
+      chrony_allow_enable: true
+      chrony_allow:
          - 10.10.10.0/24
          - 127.0.0.1
          - ::/0
