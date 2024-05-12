@@ -1,0 +1,17 @@
+---
+
+- name: config switch banner
+
+  hosts: switches
+
+  tasks:
+
+  - name: Add Banner
+
+    ios_banner:
+      banner: login
+      text: |
+        Nicolas Cage is the
+        Tiger King
+      state: present
+
